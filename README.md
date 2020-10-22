@@ -47,6 +47,24 @@ pressure_total_seconds{controller="memory",id="/system.slice/systemd-journald.se
 * `--metrics.disable-avg` disables reporting of averages.
 * `--metrics.silence-zeros` silences reporting of zero values.
 
+## Deploying
+
+`docker run -d --name=psi-exporter -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 9100:9100 --privileged=true zentria/psi-exporter:latest`
+
+Or using `docker-compose`:
+
+```yaml
+version: '2.4'
+
+service:
+  psi-exporter:
+    image: zentria/psi-exporter:latest
+    restart: unless-stopped
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+```
+
 ## License
 
 MIT
